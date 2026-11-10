@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Love Story ❤️</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;
+ background:radial-gradient(circle at top,#54152c,#170912 55%,#080608);
+ color:white;font-family:Tahoma,Arial;
+ text-align:center;overflow-x:hidden;
+}
+.container{padding:35px 20px;max-width:600px;margin:auto}
+.heart{font-size:65px;animation:pulse 1.5s infinite}
+@keyframes pulse{50%{transform:scale(1.2)}}
+h1{color:#ffb6c9;font-size:30px}
+p{line-height:2;color:#f4dce5}
+input{
+ width:85%;padding:15px;border-radius:30px;
+ border:1px solid #d75b80;background:#220e19;
+ color:white;text-align:center;font-size:18px;
+}
+button{
+ padding:14px 28px;border:0;border-radius:30px;
+ background:linear-gradient(45deg,#a51d4b,#f05b85);
+ color:white;font-size:17px;margin:15px;cursor:pointer;
+}
+#story{display:none}
+.card{
+ background:#ffffff12;border:1px solid #ffffff25;
+ border-radius:20px;padding:22px;margin-top:25px;
+}
+.envelope{font-size:65px;cursor:pointer;padding:15px;transition:.4s}\n.envelope:active{transform:scale(1.15)}\n#letter{display:none;color:#ffd5e1;line-height:2}\n.float{
+ position:fixed;bottom:-30px;animation:up 7s linear infinite;
+ pointer-events:none;opacity:.7
+}
+@keyframes up{
+ to{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div id="login">
+ <div class="heart">❤️</div>
+ <h1>في مفاجأة مستنياكي</h1>
+ <p>في حكاية صغيرة معمولة مخصوص عشانك..<br>
+ بس الأول جاوبي على السؤال ❤️</p>
+ <div class="card">
+  <p>إيه تاريخ ميلادك؟ 🎂</p>
+  <input id="pass" type="password" placeholder="اكتبي تاريخ ميلادك">
+  <br>
+  <button onclick="enter()">افتحي قلبي ❤️</button>
+  <p id="error"></p>
+ </div>
+</div>
+
+<div id="story">
+ <div class="heart">💗</div>
+ <h1>أهلاً بيكي في عالمك</h1>
+ <p>وجودك بيخلي للحاجات البسيطة معنى أجمل.</p>
+ <div class="card">
+  <h2>💌 رسالة ليكي</h2>
+  <p>
+   يمكن الكلام مهما كان حلو مش هيقدر يوصف
+   قد إيه وجودك مميز.
+   أتمنى دايمًا أشوفك مبسوطة،
+   وتفضلي محاطة بكل الحب والفرحة.
+   ❤️
+  </p>
+ </div>
+ <div class="card">
+  <h2>🌹 رسالة صغيرة</h2>
+  <p>من بين كل الحكايات، حكايتنا ليها مكان مميز.</p>
+ </div>
+ <p>Made with ❤️ just for you</p>
+</div>
+
+</div>
+
+
+<script>
+
+let musicContext;
+let musicTimer;
+function startMusic(){
+ if(musicContext) return;
+ const AC=window.AudioContext||window.webkitAudioContext;
+ if(!AC) return;
+ musicContext=new AC();
+ const notes=[261.63,329.63,392,329.63,293.66,349.23,440,349.23];
+ let i=0;
+ function playNote(){
+  const osc=musicContext.createOscillator();
+  const gain=musicContext.createGain();
+  osc.type='sine';
+  osc.frequency.value=notes[i%notes.length];
+  gain.gain.setValueAtTime(0.0001,musicContext.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.055,musicContext.currentTime+0.08);
+  gain.gain.exponentialRampToValueAtTime(0.0001,musicContext.currentTime+0.65);
+  osc.connect(gain);
+  gain.connect(musicContext.destination);
+  osc.start();
+  osc.stop(musicContext.currentTime+0.7);
+  i++;
+ }
+ playNote();
+ musicTimer=setInterval(playNote,650);
+}
+function openLetter(){
+ document.getElementById('letter').style.display='block';
+}
+function enter(){
+ if(document.getElementById('pass').value==='01042010'){
+  document.getElementById('login').style.display='none';
+  document.getElementById('story').style.display='block';
+  startMusic();
+ }else{
+  document.getElementById('error').textContent='حاولي تاني يا قمر ❤️';
+ }
+}
+setInterval(()=>{
+ let h=document.createElement('div');
+ h.className='float';
+ h.textContent=['❤️','💗','💕','✨'][Math.floor(Math.random()*4)];
+ h.style.left=Math.random()*100+'vw';
+ h.style.fontSize=(15+Math.random()*25)+'px';
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),7000);
+},600);
+</script>
+</body>
+</html>
