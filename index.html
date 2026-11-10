@@ -53,6 +53,18 @@ button{
 .counter strong{display:block;font-size:25px;color:#ffb6c9}
 .counter small{color:#f4dce5}
 .letter-text{font-size:17px;line-height:2.2}
+
+*{animation:none!important;transition:none!important}
+body{overflow-x:hidden}
+.secret-btn{
+ background:#5c1834;border:1px solid #e88ba8;
+ border-radius:15px;padding:13px;color:white;
+ margin:5px;cursor:pointer
+}
+#secretResult,#wishResult,#heartResult{
+ color:#ffc1d4;line-height:2;
+ padding:12px;min-height:35px
+}
 </style>
 </head>
 <body>
@@ -119,14 +131,37 @@ button{
  وإن شاء الله ربنا يجمعنا في الحلال ❤️
  </p>
 </div>
-<p>Made with ❤️ just for you</p>
+
+<div class="card">
+ <h2>🔐 صندوق الأسرار</h2>
+ <p>في كلام كتير مستخبي ليكي...</p>
+ <button class="secret-btn" onclick="newSecret()">افتحي سر من أسراري ❤️</button>
+ <div id="secretResult"></div>
+</div>
+
+<div class="card">
+ <h2>✨ برطمان الأمنيات</h2>
+ <p>اضغطي عشان تعرفي أمنيتي ليكي.</p>
+ <button class="secret-btn" onclick="newWish()">افتحي أمنية</button>
+ <div id="wishResult"></div>
+</div>
+
+<div class="card">
+ <h2>💗 اختاري قلبك</h2>
+ <p>كل قلب جواه رسالة مختلفة.</p>
+ <button class="secret-btn" onclick="heartChoice(1)">❤️</button>
+ <button class="secret-btn" onclick="heartChoice(2)">💗</button>
+ <button class="secret-btn" onclick="heartChoice(3)">💖</button>
+ <div id="heartResult"></div>
+</div>
+\n<p>Made with ❤️ just for you</p>
 
 </div>
 
 </div>
 
 
-<script>
+<audio id="music" src="song.mp3" loop></audio>\n<script>
 
 function startMusic(){
  document.getElementById('youtubePlayer').innerHTML=
@@ -169,6 +204,35 @@ function updateCounter(){
 }
 updateCounter();
 setInterval(updateCounter,1000);
+
+const secrets=[
+"ابتسامتك من أجمل الحاجات اللي في الدنيا ❤️",
+"وجودك في حياتي نعمة جميلة.",
+"دايمًا أتمنى أشوفك مبسوطة وناجحة.",
+"إنتي ليكي مكانة مميزة في قلبي."
+];
+const wishes=[
+"ربنا يحققلك كل أحلامك يا ملوك ✨",
+"أتمنى كل أيامك تكون مليانة فرحة.",
+"ربنا يكتبلك الخير والسعادة في كل خطوة.",
+"أتمنى تفضلي دايمًا فخورة بنفسك."
+];
+function newSecret(){
+ const i=Math.floor(Math.random()*secrets.length);
+ document.getElementById('secretResult').textContent=secrets[i];
+}
+function newWish(){
+ const i=Math.floor(Math.random()*wishes.length);
+ document.getElementById('wishResult').textContent=wishes[i];
+}
+function heartChoice(n){
+ const messages={
+  1:"ده قلب بيقولك إنك غالية ❤️",
+  2:"ده قلب بيتمنالك كل السعادة 💗",
+  3:"وده قلب جواه دعوة حلوة ليكي 💖"
+ };
+ document.getElementById('heartResult').textContent=messages[n];
+}
 </script>
 </body>
 </html>
