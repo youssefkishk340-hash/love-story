@@ -39,6 +39,20 @@ button{
 @keyframes up{
  to{transform:translateY(-110vh) rotate(360deg);opacity:0}
 }
+
+.counter{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:8px;margin:18px 0;
+}
+.counter div{
+ background:#ffffff12;
+ border:1px solid #d75b80;
+ border-radius:14px;padding:13px 3px;
+}
+.counter strong{display:block;font-size:25px;color:#ffb6c9}
+.counter small{color:#f4dce5}
+.letter-text{font-size:17px;line-height:2.2}
 </style>
 </head>
 <body>
@@ -81,7 +95,32 @@ button{
   <h2>🌹 رسالة صغيرة</h2>
   <p>من بين كل الحكايات، حكايتنا ليها مكان مميز.</p>
  </div>
- <p>Made with ❤️ just for you</p>
+ 
+<div class="card">
+ <h2>⏳ بقالنا قد إيه؟</h2>
+ <p>من يوم 17 يونيو 2024 ❤️</p>
+ <div class="counter">
+  <div><strong id="days">0</strong><small>يوم</small></div>
+  <div><strong id="hours">0</strong><small>ساعة</small></div>
+  <div><strong id="minutes">0</strong><small>دقيقة</small></div>
+  <div><strong id="seconds">0</strong><small>ثانية</small></div>
+ </div>
+ <p>وكل يوم بنضيف حكاية جديدة ❤️</p>
+</div>
+
+<div class="card">
+ <h2>💌 كلام من قلبي ليكي يا ملوك</h2>
+ <p class="letter-text">
+ يا ملوك يا حبيبة قلبي ❤️<br>
+ عايزك تعرفي إنك أحسن وأنضف حاجة حصلت في حياتي،
+ ومهما بزعلك بيبقى خوف عليكي وحب فيكي.<br>
+ بحبك يا أحسن حاجة حصلتلي،
+ وأوعي في مرة تزعلي مني وتفتكري إن حبي ليكي هيقل أبدًا.<br>
+ وإن شاء الله ربنا يجمعنا في الحلال ❤️
+ </p>
+</div>
+<p>Made with ❤️ just for you</p>
+
 </div>
 
 </div>
@@ -114,6 +153,22 @@ function enter(){
  document.body.appendChild(h);
  setTimeout(()=>h.remove(),7000);
 },600); */
+
+function updateCounter(){
+ const start=new Date(2024,5,17,0,0,0);
+ let diff=Math.max(0,Date.now()-start.getTime());
+ const day=86400000;
+ const hour=3600000;
+ const minute=60000;
+ document.getElementById('days').textContent=Math.floor(diff/day);
+ diff%=day;
+ document.getElementById('hours').textContent=Math.floor(diff/hour);
+ diff%=hour;
+ document.getElementById('minutes').textContent=Math.floor(diff/minute);
+ document.getElementById('seconds').textContent=Math.floor((diff%minute)/1000);
+}
+updateCounter();
+setInterval(updateCounter,1000);
 </script>
 </body>
 </html>
