@@ -68,7 +68,14 @@ body{overflow-x:hidden}
 </style>
 </head>
 <body>
-<div class="container">
+<div id="introScreen" style="position:fixed;inset:0;z-index:9999;background:#0b0b0b;color:#d4af37;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px">
+ <h1>أغنية ليكي ❤️</h1>
+ <p>اسمعيها الأول، وبعدها افتحي المفاجأة</p>
+ <div id="introPlayer" style="width:100%;max-width:400px"></div>
+ <button id="playBtn" onclick="startMusic()">شغّلي الأغنية 🎵</button>
+ <button id="continueBtn" onclick="continueStory()" style="display:none">كمّلي الحكاية ❤️</button>
+</div>
+<div class="container" id="mainContainer" style="display:none">
 
 <div id="login">
  <div class="heart">❤️</div>
@@ -164,8 +171,22 @@ body{overflow-x:hidden}
 <audio id="music" src="song.mp3" loop></audio>\n<script>
 
 function startMusic(){
- document.getElementById('youtubePlayer').innerHTML=
+ document.getElementById('introPlayer').innerHTML=
  '<iframe width="100%" height="210" src="https://www.youtube-nocookie.com/embed/EgmXTmj62ic?autoplay=1&playsinline=1" title="تملي معاك - عمرو دياب" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="border:0;border-radius:15px"></iframe>';
+ document.getElementById('playBtn').style.display='none';
+ document.getElementById('continueBtn').style.display='inline-block';
+}
+function continueStory(){
+ document.getElementById('mainContainer').style.display='block';
+ document.getElementById('introScreen').style.position='fixed';
+ document.getElementById('introScreen').style.inset='auto 0 0 0';
+ document.getElementById('introScreen').style.padding='5px';
+ document.getElementById('introScreen').style.background='#0b0b0b';
+ document.getElementById('introScreen').style.zIndex='9999';
+ document.getElementById('introScreen').querySelector('h1').style.display='none';
+ document.getElementById('introScreen').querySelector('p').style.display='none';
+ document.getElementById('continueBtn').style.display='none';
+ document.getElementById('introPlayer').querySelector('iframe').style.height='90px';
 }
 function openLetter(){
  document.getElementById('letter').style.display='block';
@@ -174,7 +195,6 @@ function enter(){
  if(document.getElementById('pass').value==='142010'){
   document.getElementById('login').style.display='none';
   document.getElementById('story').style.display='block';
-  startMusic();
  }else{
   document.getElementById('error').textContent='حاولي تاني يا قمر ❤️';
  }
