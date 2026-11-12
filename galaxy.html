@@ -67,6 +67,7 @@ const memories=[
  ["النجمة الخامسة 💌","مكانك في الحكاية دي مميز ومش بيتكرر."]
 ];
 let found=new Set();
+let unlockReady=false;
 const universe=document.getElementById('universe');
 const positions=[
  [15,18],[75,15],[45,30],[20,70],[80,72]
@@ -84,28 +85,23 @@ memories.forEach((m,i)=>{
   document.getElementById('message').style.display='flex';
   document.getElementById('counter').textContent='اكتشفي النجوم: '+found.size+' / 5';
   if(found.size===5){
-  const secret=document.getElementById('secret');
-  secret.style.display='block';
-  secret.style.position='fixed';
-  secret.style.inset='0';
-  secret.style.zIndex='100';
-  secret.style.display='flex';
-  secret.style.flexDirection='column';
-  secret.style.alignItems='center';
-  secret.style.justifyContent='center';
-  secret.style.background='rgba(20,3,13,.97)';
-  secret.style.padding='25px';
-  secret.style.borderRadius='0';
-  secret.style.textAlign='center';
-  secret.innerHTML='<h2>🎉 اكتشفتي كل أسرار المجرة!</h2><button onclick="openSecret()">افتحي الغرفة السرية 🔐</button>';
-}
+   unlockReady=true;
+  }
  };
  universe.appendChild(s);
 });
 function closeMessage(){
  document.getElementById('message').style.display='none';
+
+ if(unlockReady){
+  unlockReady=false;
+  const secret=document.getElementById('secret');
+  secret.style.cssText='position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle,#681b40,#10040c);padding:25px;text-align:center;color:white';
+  secret.innerHTML='<h1>🎉 اكتشفتي كل أسرار المجرة!</h1><p>في مفاجأة أخيرة مستنياكي ❤️</p><button onclick="openSecret()">افتحي الغرفة السرية 🔐</button>';
+ }
 }
 function openSecret(){
+ document.getElementById('secret').style.display='none';
  document.getElementById('secretRoom').style.display='flex';
  const msg='يا ملوك، وسط مليارات النجوم، اخترت أخلي ليكي مجرة صغيرة فيها كلام حلو وذكريات جميلة. أتمنى تفضلي دايمًا مبسوطة، وتكون أيامك كلها نور وفرحة. ❤️';
  document.getElementById('secretText').textContent=msg;
