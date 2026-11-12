@@ -39,7 +39,18 @@ a{color:#ffb4ce}
 <div id="universe">
  <div id="heart">💗</div>
 </div>
-<div id="secret">🔐 اكتشفتي كل النجوم! الغرفة السرية اتفتحت ❤️</div>
+<div id="secret" style="display:none">
+ <button onclick="openSecret()">افتحي الغرفة السرية 🔐</button>
+</div>
+
+<div id="secretRoom" style="display:none;position:fixed;inset:0;z-index:10;background:radial-gradient(circle,#681b40,#10040c);align-items:center;justify-content:center;padding:22px">
+ <div class="card">
+  <div style="font-size:55px">💗</div>
+  <h1>سر ملوك</h1>
+  <p id="secretText"></p>
+  <button onclick="closeSecret()">ارجعي للمجرة ✨</button>
+ </div>
+</div>
 <div id="message">
  <div class="card">
   <h2 id="title">ذكرى ❤️</h2>
@@ -72,12 +83,30 @@ memories.forEach((m,i)=>{
   document.getElementById('words').textContent=m[1];
   document.getElementById('message').style.display='flex';
   document.getElementById('counter').textContent='اكتشفي النجوم: '+found.size+' / 5';
-  if(found.size===5)document.getElementById('secret').style.display='block';
+  if(found.size===5){
+  const secret=document.getElementById('secret');
+  secret.style.display='block';
+  secret.style.position='relative';
+  secret.style.zIndex='20';
+  secret.style.margin='25px auto';
+  secret.style.padding='20px';
+  secret.style.background='#681b40';
+  secret.style.borderRadius='20px';
+  secret.innerHTML='<h2>🎉 اكتشفتي كل أسرار المجرة!</h2><button onclick="openSecret()">افتحي الغرفة السرية 🔐</button>';
+}
  };
  universe.appendChild(s);
 });
 function closeMessage(){
  document.getElementById('message').style.display='none';
+}
+function openSecret(){
+ document.getElementById('secretRoom').style.display='flex';
+ const msg='يا ملوك، وسط مليارات النجوم، اخترت أخلي ليكي مجرة صغيرة فيها كلام حلو وذكريات جميلة. أتمنى تفضلي دايمًا مبسوطة، وتكون أيامك كلها نور وفرحة. ❤️';
+ document.getElementById('secretText').textContent=msg;
+}
+function closeSecret(){
+ document.getElementById('secretRoom').style.display='none';
 }
 </script>
 </body>

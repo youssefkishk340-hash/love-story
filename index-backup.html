@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Love Story ❤️</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;
+ background:radial-gradient(circle at top,#54152c,#170912 55%,#080608);
+ color:white;font-family:Tahoma,Arial;
+ text-align:center;overflow-x:hidden;
+}
+.container{padding:35px 20px;max-width:600px;margin:auto}
+.heart{font-size:65px;animation:none}
+@keyframes pulse{50%{transform:scale(1.2)}}
+h1{color:#ffb6c9;font-size:30px}
+p{line-height:2;color:#f4dce5}
+input{
+ width:85%;padding:15px;border-radius:30px;
+ border:1px solid #d75b80;background:#220e19;
+ color:white;text-align:center;font-size:18px;
+}
+button{
+ padding:14px 28px;border:0;border-radius:30px;
+ background:linear-gradient(45deg,#a51d4b,#f05b85);
+ color:white;font-size:17px;margin:15px;cursor:pointer;
+}
+#story{display:none}
+.card{
+ background:#ffffff12;border:1px solid #ffffff25;
+ border-radius:20px;padding:22px;margin-top:25px;
+}
+.envelope{font-size:65px;cursor:pointer;padding:15px;transition:.4s}\n.envelope:active{transform:scale(1.15)}\n#letter{display:none;color:#ffd5e1;line-height:2}\n.float{
+ position:fixed;bottom:-30px;animation:none;
+ pointer-events:none;opacity:.7
+}
+@keyframes up{
+ to{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+
+.counter{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:8px;margin:18px 0;
+}
+.counter div{
+ background:#ffffff12;
+ border:1px solid #d75b80;
+ border-radius:14px;padding:13px 3px;
+}
+.counter strong{display:block;font-size:25px;color:#ffb6c9}
+.counter small{color:#f4dce5}
+.letter-text{font-size:17px;line-height:2.2}
+
+*{animation:none!important;transition:none!important}
+body{overflow-x:hidden}
+.secret-btn{
+ background:#5c1834;border:1px solid #e88ba8;
+ border-radius:15px;padding:13px;color:white;
+ margin:5px;cursor:pointer
+}
+#secretResult,#wishResult,#heartResult{
+ color:#ffc1d4;line-height:2;
+ padding:12px;min-height:35px
+}
+</style>
+</head>
+<body>
+<div id="introScreen" style="position:fixed;inset:0;z-index:9999;background:#0b0b0b;color:#d4af37;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px">
+ <h1>أغنية ليكي ❤️</h1>
+ <p>اسمعيها الأول، وبعدها افتحي المفاجأة</p>
+ <div id="introPlayer" style="width:100%;max-width:400px"></div>
+ <button id="playBtn" onclick="startMusic()">شغّلي الأغنية 🎵</button>
+ <button id="continueBtn" onclick="continueStory()" style="display:none">كمّلي الحكاية ❤️</button>
+</div>
+<div class="container" id="mainContainer" style="display:none">
+
+<div id="login">
+ <div class="heart">❤️</div>
+ <h1>في مفاجأة مستنياكي</h1>
+ <p>في حكاية صغيرة معمولة مخصوص عشانك..<br>
+ بس الأول جاوبي على السؤال ❤️</p>
+ <div class="card">
+  <p>إيه تاريخ ميلادك؟ 🎂</p>
+  <input id="pass" type="password" placeholder="اكتبي تاريخ ميلادك">
+  <br>
+  <button onclick="enter()">افتحي قلبي ❤️</button>
+  <p id="error"></p>
+ </div>
+</div>
+
+<div id="story">
+ <div class="heart">💗</div>
+ <h1>أهلاً بيكي في عالمك</h1>
+ <div id="musicBox" class="card">
+  <h2>🎵 أغنيتك المفضلة</h2>
+  <div id="youtubePlayer"></div>
+  <p>تملي معاك ❤️</p>
+ </div>
+ <p>وجودك بيخلي للحاجات البسيطة معنى أجمل.</p>
+ <div class="card">
+  <h2>💌 رسالة ليكي</h2>
+  <p>
+   يمكن الكلام مهما كان حلو مش هيقدر يوصف
+   قد إيه وجودك مميز.
+   أتمنى دايمًا أشوفك مبسوطة،
+   وتفضلي محاطة بكل الحب والفرحة.
+   ❤️
+  </p>
+ </div>
+ <div class="card">
+  <h2>🌹 رسالة صغيرة</h2>
+  <p>من بين كل الحكايات، حكايتنا ليها مكان مميز.</p>
+ </div>
+ 
+<div class="card">
+ <h2>⏳ بقالنا قد إيه؟</h2>
+ <p>من يوم 17 يونيو 2024 ❤️</p>
+ <div class="counter">
+  <div><strong id="days">0</strong><small>يوم</small></div>
+  <div><strong id="hours">0</strong><small>ساعة</small></div>
+  <div><strong id="minutes">0</strong><small>دقيقة</small></div>
+  <div><strong id="seconds">0</strong><small>ثانية</small></div>
+ </div>
+ <p>وكل يوم بنضيف حكاية جديدة ❤️</p>
+</div>
+
+<div class="card">
+ <h2>💌 كلام من قلبي ليكي يا ملوك</h2>
+ <p class="letter-text">
+ يا ملوك يا حبيبة قلبي ❤️<br>
+ عايزك تعرفي إنك أحسن وأنضف حاجة حصلت في حياتي،
+ ومهما بزعلك بيبقى خوف عليكي وحب فيكي.<br>
+ بحبك يا أحسن حاجة حصلتلي،
+ وأوعي في مرة تزعلي مني وتفتكري إن حبي ليكي هيقل أبدًا.<br>
+ وإن شاء الله ربنا يجمعنا في الحلال ❤️
+ </p>
+</div>
+
+<div class="card">
+ <h2>🔐 صندوق الأسرار</h2>
+ <p>في كلام كتير مستخبي ليكي...</p>
+ <button class="secret-btn" onclick="newSecret()">افتحي سر من أسراري ❤️</button>
+ <div id="secretResult"></div>
+</div>
+
+<div class="card">
+ <h2>✨ برطمان الأمنيات</h2>
+ <p>اضغطي عشان تعرفي أمنيتي ليكي.</p>
+ <button class="secret-btn" onclick="newWish()">افتحي أمنية</button>
+ <div id="wishResult"></div>
+</div>
+
+<div class="card">
+ <h2>💗 اختاري قلبك</h2>
+ <p>كل قلب جواه رسالة مختلفة.</p>
+ <button class="secret-btn" onclick="heartChoice(1)">❤️</button>
+ <button class="secret-btn" onclick="heartChoice(2)">💗</button>
+ <button class="secret-btn" onclick="heartChoice(3)">💖</button>
+ <div id="heartResult"></div>
+</div>
+\n<p>Made with ❤️ just for you</p>
+
+</div>
+
+</div>
+
+
+<audio id="music" src="song.mp3" loop></audio>\n<script>
+
+function startMusic(){
+ document.getElementById('introPlayer').innerHTML=
+ '<iframe width="100%" height="210" src="https://www.youtube-nocookie.com/embed/EgmXTmj62ic?autoplay=1&playsinline=1" title="تملي معاك - عمرو دياب" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="border:0;border-radius:15px"></iframe>';
+ document.getElementById('playBtn').style.display='none';
+ document.getElementById('continueBtn').style.display='inline-block';
+}
+function continueStory(){
+ document.getElementById('mainContainer').style.display='block';
+ document.getElementById('introScreen').style.position='fixed';
+ document.getElementById('introScreen').style.inset='auto 0 0 0';
+ document.getElementById('introScreen').style.padding='5px';
+ document.getElementById('introScreen').style.background='#0b0b0b';
+ document.getElementById('introScreen').style.zIndex='9999';
+ document.getElementById('introScreen').querySelector('h1').style.display='none';
+ document.getElementById('introScreen').querySelector('p').style.display='none';
+ document.getElementById('continueBtn').style.display='none';
+ document.getElementById('introPlayer').querySelector('iframe').style.height='90px';
+}
+function openLetter(){
+ document.getElementById('letter').style.display='block';
+}
+function enter(){
+ if(document.getElementById('pass').value==='142010'){
+  document.getElementById('login').style.display='none';
+  document.getElementById('story').style.display='block';
+ }else{
+  document.getElementById('error').textContent='حاولي تاني يا قمر ❤️';
+ }
+}
+/* setInterval(()=>{
+ let h=document.createElement('div');
+ h.className='float';
+ h.textContent=['❤️','💗','💕','✨'][Math.floor(Math.random()*4)];
+ h.style.left=Math.random()*100+'vw';
+ h.style.fontSize=(15+Math.random()*25)+'px';
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),7000);
+},600); */
+
+function updateCounter(){
+ const start=new Date(2024,5,17,0,0,0);
+ let diff=Math.max(0,Date.now()-start.getTime());
+ const day=86400000;
+ const hour=3600000;
+ const minute=60000;
+ document.getElementById('days').textContent=Math.floor(diff/day);
+ diff%=day;
+ document.getElementById('hours').textContent=Math.floor(diff/hour);
+ diff%=hour;
+ document.getElementById('minutes').textContent=Math.floor(diff/minute);
+ document.getElementById('seconds').textContent=Math.floor((diff%minute)/1000);
+}
+updateCounter();
+setInterval(updateCounter,1000);
+
+const secrets=[
+"ابتسامتك من أجمل الحاجات اللي في الدنيا ❤️",
+"وجودك في حياتي نعمة جميلة.",
+"دايمًا أتمنى أشوفك مبسوطة وناجحة.",
+"إنتي ليكي مكانة مميزة في قلبي."
+];
+const wishes=[
+"ربنا يحققلك كل أحلامك يا ملوك ✨",
+"أتمنى كل أيامك تكون مليانة فرحة.",
+"ربنا يكتبلك الخير والسعادة في كل خطوة.",
+"أتمنى تفضلي دايمًا فخورة بنفسك."
+];
+function newSecret(){
+ const i=Math.floor(Math.random()*secrets.length);
+ document.getElementById('secretResult').textContent=secrets[i];
+}
+function newWish(){
+ const i=Math.floor(Math.random()*wishes.length);
+ document.getElementById('wishResult').textContent=wishes[i];
+}
+function heartChoice(n){
+ const messages={
+  1:"ده قلب بيقولك إنك غالية ❤️",
+  2:"ده قلب بيتمنالك كل السعادة 💗",
+  3:"وده قلب جواه دعوة حلوة ليكي 💖"
+ };
+ document.getElementById('heartResult').textContent=messages[n];
+}
+</script>
+</body>
+</html>
