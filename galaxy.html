@@ -86,12 +86,17 @@ memories.forEach((m,i)=>{
   if(found.size===5){
   const secret=document.getElementById('secret');
   secret.style.display='block';
-  secret.style.position='relative';
-  secret.style.zIndex='20';
-  secret.style.margin='25px auto';
-  secret.style.padding='20px';
-  secret.style.background='#681b40';
-  secret.style.borderRadius='20px';
+  secret.style.position='fixed';
+  secret.style.inset='0';
+  secret.style.zIndex='100';
+  secret.style.display='flex';
+  secret.style.flexDirection='column';
+  secret.style.alignItems='center';
+  secret.style.justifyContent='center';
+  secret.style.background='rgba(20,3,13,.97)';
+  secret.style.padding='25px';
+  secret.style.borderRadius='0';
+  secret.style.textAlign='center';
   secret.innerHTML='<h2>🎉 اكتشفتي كل أسرار المجرة!</h2><button onclick="openSecret()">افتحي الغرفة السرية 🔐</button>';
 }
  };
