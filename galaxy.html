@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مجرة ملوك ❤️</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;overflow:hidden;
+ background:radial-gradient(ellipse at center,#481329,#200817 55%,#09040b);
+ color:#fff;font-family:Arial;text-align:center;
+}
+h1{color:#ffb4ce;margin-top:35px}
+.subtitle{color:#e9b4c8}
+#universe{position:relative;height:65vh;max-width:600px;margin:auto}
+.star{
+ position:absolute;width:17px;height:17px;border-radius:50%;
+ background:#fff0f7;box-shadow:0 0 12px 5px #ff7eae;
+ cursor:pointer;animation:glow 2s infinite alternate;
+}
+@keyframes glow{to{box-shadow:0 0 25px 10px #ff4e91}}
+#heart{position:absolute;top:43%;left:50%;transform:translate(-50%,-50%);font-size:65px;filter:drop-shadow(0 0 20px #ff4e91)}
+#counter{color:#ffc2d8;margin:10px}
+#message{
+ display:none;position:fixed;inset:0;background:#160611ee;
+ align-items:center;justify-content:center;padding:25px;z-index:5
+}
+.card{background:#49142d;border:1px solid #d77b9e;border-radius:22px;padding:28px;max-width:340px}
+button{background:#b52c65;color:white;border:0;border-radius:25px;padding:12px 25px;font-size:16px}
+#secret{display:none;color:#ffd2e2;font-size:20px;margin:15px}
+a{color:#ffb4ce}
+</style>
+</head>
+<body>
+<h1>🌌 مجرة ملوك</h1>
+<p class="subtitle">كل نجمة هنا مخبّية حكاية صغيرة ❤️</p>
+<div id="counter">اكتشفي النجوم: 0 / 5</div>
+<div id="universe">
+ <div id="heart">💗</div>
+</div>
+<div id="secret">🔐 اكتشفتي كل النجوم! الغرفة السرية اتفتحت ❤️</div>
+<div id="message">
+ <div class="card">
+  <h2 id="title">ذكرى ❤️</h2>
+  <p id="words"></p>
+  <button onclick="closeMessage()">كمّلي اكتشاف ✨</button>
+ </div>
+</div>
+<script>
+const memories=[
+ ["النجمة الأولى ⭐","في ناس وجودها بيخلّي الدنيا أجمل."],
+ ["النجمة الثانية 💗","ضحكتك من التفاصيل اللي بتخلّي اليوم أحلى."],
+ ["النجمة الثالثة 🌹","كل لحظة حلوة تستاهل نفتكرها."],
+ ["النجمة الرابعة ✨","أتمنى ليكي أيام كلها فرحة وراحة بال."],
+ ["النجمة الخامسة 💌","مكانك في الحكاية دي مميز ومش بيتكرر."]
+];
+let found=new Set();
+const universe=document.getElementById('universe');
+const positions=[
+ [15,18],[75,15],[45,30],[20,70],[80,72]
+];
+memories.forEach((m,i)=>{
+ const s=document.createElement('div');
+ s.className='star';
+ s.style.left=positions[i][0]+'%';
+ s.style.top=positions[i][1]+'%';
+ s.onclick=()=>{
+  if(found.has(i))return;
+  found.add(i);
+  document.getElementById('title').textContent=m[0];
+  document.getElementById('words').textContent=m[1];
+  document.getElementById('message').style.display='flex';
+  document.getElementById('counter').textContent='اكتشفي النجوم: '+found.size+' / 5';
+  if(found.size===5)document.getElementById('secret').style.display='block';
+ };
+ universe.appendChild(s);
+});
+function closeMessage(){
+ document.getElementById('message').style.display='none';
+}
+</script>
+</body>
+</html>
